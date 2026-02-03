@@ -40,25 +40,6 @@ jobs:
           # Provides better git history context than "1".
           fetch-depth: 0
 
-      - name: Check PR size
-        id: pr-size
-        run: |
-            FILES_CHANGED=$(gh pr view ${{ github.event.pull_request.number }} --json files --jq '.files | length')
-            echo "files_changed=$FILES_CHANGED" >> $GITHUB_OUTPUT
-
-            if [ $FILES_CHANGED -gt 50 ]; then
-              echo "max_turns=12" >> $GITHUB_OUTPUT
-              echo "Review large PR with 12 turns"
-            elif [ $FILES_CHANGED -gt 20 ]; then
-              echo "max_turns=10" >> $GITHUB_OUTPUT
-              echo "Review medium PR with 10 turns"
-            else
-              echo "max_turns=8" >> $GITHUB_OUTPUT
-              echo "Review small PR with 8 turns"
-            fi
-        env:
-            GH_TOKEN: ${{ github.token }}
-
       - name: Run Claude Code Review
         id: claude-review
         uses: anthropics/claude-code-action@v1
@@ -73,8 +54,5 @@ jobs:
           show_full_output: false
           # Update a single PR comment rather than creating a new one for every review.
           use_sticky_comment: true
-          # Adapting "max-turns" to improve the performance of the code review process.
-          claude_args: >-
-            --allowedTools "Bash(gh pr *),Bash(gh api *),Read,Grep"
-            --max-turns ${{ steps.pr-size.outputs.max_turns }}
+          claude_args: '--allowedTools "Bash(gh pr *),Bash(gh api *),Read,Grep"'
 
