@@ -5,6 +5,7 @@ import { BrowserConsoleLogger, LogLevel } from "@workleap/logging";
 import { App } from "./App.tsx";
 import { registerHost } from "./host/register.tsx";
 import { registerEmployeeModule } from "./modules/employee/register.tsx";
+import { registerSettingsModule } from "./modules/settings/register.tsx";
 
 const logger = new BrowserConsoleLogger({
     logLevel: LogLevel.debug
@@ -13,7 +14,7 @@ const logger = new BrowserConsoleLogger({
 logger.information("Initializing Employee Management Application");
 
 const runtime = initializeFirefly({
-    localModules: [registerHost, registerEmployeeModule],
+    localModules: [registerHost, registerEmployeeModule, registerSettingsModule],
     loggers: [logger]
 });
 
