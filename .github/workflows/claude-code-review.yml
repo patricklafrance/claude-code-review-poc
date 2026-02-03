@@ -72,9 +72,9 @@ jobs:
           show_full_output: false
           # Update a single PR comment rather than creating a new one for every review.
           use_sticky_comment: true
-          # Trying out if "max-turns" could lower the time to process the code review.
+          # Adapting "max-turns" and settings a token limit to improve the performance of the code review process.
           claude_args: >-
-            --max-turns ${{ steps.pr-size.outputs.max_turns }}
             --allowedTools "Bash(gh pr *),Bash(gh api *),Read,Grep"
+            --max-turns ${{ steps.pr-size.outputs.max_turns }}
             --max-tokens 4096
 
