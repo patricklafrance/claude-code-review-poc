@@ -76,4 +76,5 @@ jobs:
           claude_args: >-
             --max-turns ${{ steps.pr-size.outputs.max_turns }}
             --allowedTools "Bash(gh pr *),Bash(gh api *),Read,Grep"
+            --max-tokens 4096
 
