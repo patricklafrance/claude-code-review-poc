@@ -54,5 +54,5 @@ jobs:
           show_full_output: false
           # Update a single PR comment rather than creating a new one for every review.
           use_sticky_comment: true
-          claude_args: '--allowedTools "Bash(gh pr *),Bash(gh api *),Read,Grep"'
+          claude_args: '--allowedTools "Bash(gh pr *),Bash(gh api *),Read,Grep,Skill"'
 
