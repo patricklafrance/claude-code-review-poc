@@ -1,6 +1,9 @@
 # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
 # or https://code.claude.com/docs/en/cli-reference for available options
 
+# Potential quality improvements
+# - Add back "Task" as an allowed tool. It will degrade the performance though. Must find the right balance.
+
 name: Claude Code Review
 
 concurrency:
@@ -11,14 +14,8 @@ on:
   pull_request:
     types: [opened, synchronize, ready_for_review, reopened]
     paths:
-      # Skip docs
+      # Skip docs.
       - '!**/*.md'
-    # Optional: Only run on specific file changes
-    # paths:
-    #   - "src/**/*.ts"
-    #   - "src/**/*.tsx"
-    #   - "src/**/*.js"
-    #   - "src/**/*.jsx"
 
 jobs:
   claude-review:
@@ -44,7 +41,8 @@ jobs:
         id: pr-size
         run: |
             FILES_CHANGED=$(gh pr view ${{ github.event.pull_request.number }} --json files --jq '.files | length')
-              echo "files_changed=$FILES_CHANGED" >> $GITHUB_OUTPUT
+            echo "files_changed=$FILES_CHANGED" >> $GITHUB_OUTPUT
+
             if [ $FILES_CHANGED -gt 40 ]; then
               echo "max_turns=12" >> $GITHUB_OUTPUT
               echo "Review large PR with 12 turns"
