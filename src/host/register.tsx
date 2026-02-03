@@ -26,3 +26,4 @@ export const registerHost: ModuleRegisterFunction<FireflyRuntime> = runtime => {
         to: "/"
     });
 };
+

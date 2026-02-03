@@ -348,3 +348,4 @@ const telemetryClient = new NoopTelemetryClient();
   <ComponentUnderTest />
 </TelemetryProvider>
 ```
+

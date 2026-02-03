@@ -356,3 +356,4 @@ For Turborepo/monorepo projects, additional checks:
 2. **CI-only execution** - Never recommend running Chromatic locally
 3. **Preserve TurboSnap** - Every recommendation should maintain TurboSnap effectiveness
 4. **Cost awareness** - Every snapshot counts toward monthly budget
+

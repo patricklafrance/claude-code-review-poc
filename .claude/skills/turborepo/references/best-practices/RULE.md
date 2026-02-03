@@ -239,3 +239,4 @@ packages/
 - [structure.md](./structure.md) - Detailed repository structure patterns
 - [packages.md](./packages.md) - Creating and managing internal packages
 - [dependencies.md](./dependencies.md) - Dependency management strategies
+

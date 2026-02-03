@@ -206,3 +206,4 @@ new PerformanceObserver((entryList) => {
 | Render-blocking CSS | +200-500ms | Inline critical CSS |
 | Slow TTFB | +300-2000ms | CDN, edge caching |
 | Client-rendered content | +500-2000ms | SSR/SSG |
+

@@ -241,3 +241,4 @@ Install `EditorConfig.EditorConfig` VS Code extension.
 The file is not included in `tsconfig.json`. Either:
 1. Add the file pattern to the `include` field
 2. Remove the `include` field entirely (TypeScript includes all files by default)
+

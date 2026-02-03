@@ -283,3 +283,4 @@ Control task inheritance in Package Configurations.
 | ---------------- | -------------------------------------------------------------- |
 | `true` (default) | Inherit from root turbo.json                                   |
 | `false`          | Exclude task from package, or define fresh without inheritance |
+

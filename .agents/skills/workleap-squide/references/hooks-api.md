@@ -352,3 +352,4 @@ import { useChangeLanguage } from "@squide/i18next";
 const changeLanguage = useChangeLanguage();
 changeLanguage("fr-CA");
 ```
+

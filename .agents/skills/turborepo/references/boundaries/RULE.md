@@ -124,3 +124,4 @@ Package names work in place of tags:
 - Rules apply transitively (dependencies of dependencies)
 - Helps enforce architectural boundaries at scale
 - Catches violations before runtime/build errors
+

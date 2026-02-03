@@ -537,3 +537,4 @@ runtime.registerRoute({
     errorElement: <StandaloneErrorBoundary />
 }, { hoist: true });
 ```
+

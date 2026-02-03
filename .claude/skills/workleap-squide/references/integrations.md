@@ -558,3 +558,4 @@ logger
 ```
 
 **Warning:** Never log Personally Identifiable Information (PII). API responses often contain sensitive data that will appear in session replays.
+

@@ -102,3 +102,4 @@ const telemetryClient = new NoopTelemetryClient();
 3. **Correlation is automatic** - Never manually set Telemetry Id or Device Id
 4. **Noop for non-production** - Use `NoopTelemetryClient` in Storybook/tests
 5. **Privacy matters** - Never log PII to LogRocket; use `data-public`/`data-private` attributes
+

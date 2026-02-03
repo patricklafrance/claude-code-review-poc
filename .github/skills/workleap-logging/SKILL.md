@@ -265,3 +265,4 @@ When reviewing logging changes:
 3. **Using wrong log level**: Use `error` for failures, not `warning`
 4. **Logging sensitive data**: Never log passwords, tokens, or PII
 5. **Missing error context**: Always include `withObject()` for relevant data and `withError()` for exceptions
+

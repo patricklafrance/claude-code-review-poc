@@ -42,3 +42,4 @@ root.render(
 );
 
 logger.information("Application rendered successfully");
+

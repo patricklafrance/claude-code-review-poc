@@ -333,3 +333,4 @@ Each package should have its own `tsconfig.json`. A root one causes all tasks to
 ### Avoid TypeScript Project References
 
 They add complexity and another caching layer. Turborepo handles dependencies better.
+

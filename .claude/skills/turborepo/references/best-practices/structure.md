@@ -267,3 +267,4 @@ A lockfile is **required** for:
 - Cache correctness
 
 Without a lockfile, you'll see unpredictable behavior.
+

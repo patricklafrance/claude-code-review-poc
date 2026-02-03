@@ -351,3 +351,4 @@ To verify correlation IDs are working:
 - **Honeycomb**: Look for `app.telemetry_id` and `app.device_id` attributes in traces
 - **LogRocket**: Check the "User Traits" filter for `Telemetry Id` and `Device Id`
 - **Mixpanel**: Look for `Telemetry Id` and `Device Id` properties in events
+

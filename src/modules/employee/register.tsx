@@ -37,3 +37,4 @@ export const registerEmployeeModule: ModuleRegisterFunction<FireflyRuntime> = ru
         to: "/employees/add"
     });
 };
+

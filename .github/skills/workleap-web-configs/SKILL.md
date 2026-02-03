@@ -133,3 +133,4 @@ export default defineDevConfig({
 3. **ESM by default**: All configs target ESM/ESNext unless migrating legacy code
 4. **Browserslist for apps only**: Libraries should not include Browserslist config
 5. **TypeScript for linting**: The shared TypeScript configs focus on linting; bundlers handle transpilation
+

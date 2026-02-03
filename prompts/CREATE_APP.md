@@ -14,3 +14,4 @@ Technical requirements:
 - The application should be bug free and support being started with a development server. 
 
 To validate that the application is working as expected and do not include bugs, you can use the Chrome Devtools MCP server. If you encouter any issues with an agent skills or the documentation, log those issues in an ISSUES.txt file at the root of the workspace in a format I can understand.
+

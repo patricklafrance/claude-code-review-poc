@@ -84,3 +84,4 @@ Use for Chromatic/Storybook visual testing configuration:
 - TurboSnap preservation (avoiding barrel imports in preview files)
 - Required CI flags (`onlyChanged`, `fetch-depth: 0`)
 - Snapshot cost optimization
+
