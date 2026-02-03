@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation } from "react-router";
+import { NavLink, Outlet } from "react-router";
 import {
     useNavigationItems,
     useRenderedNavigationItems,
@@ -13,33 +13,28 @@ import {
     navItemActiveStyle
 } from "../shared/styles.ts";
 
-interface RenderContext {
-    pathname: string;
-}
-
-const renderItem: RenderItemFunction<RenderContext> = (item, key, context) => {
+// Signature: (item, key, index, level) => ReactNode
+const renderItem: RenderItemFunction = (item, key) => {
     if (!isNavigationLink(item)) {
         return null;
     }
 
     const { label, linkProps, additionalProps } = item;
-    const pathname = context?.pathname ?? "/";
-    const to = linkProps.to as string;
-    const isActive = pathname === to || (to !== "/" && pathname.startsWith(to));
 
     return (
         <li key={key}>
-            <Link
+            <NavLink
                 {...linkProps}
                 {...additionalProps}
-                style={isActive ? navItemActiveStyle : navItemStyle}
+                style={({ isActive }) => isActive ? navItemActiveStyle : navItemStyle}
             >
                 {label}
-            </Link>
+            </NavLink>
         </li>
     );
 };
 
+// Signature: (elements, key, index, level) => ReactNode
 const renderSection: RenderSectionFunction = (elements, key) => (
     <ul key={key} style={navListStyle}>
         {elements}
@@ -47,14 +42,8 @@ const renderSection: RenderSectionFunction = (elements, key) => (
 );
 
 export function RootLayout() {
-    const location = useLocation();
     const navigationItems = useNavigationItems();
-    const navigationElements = useRenderedNavigationItems(
-        navigationItems,
-        renderItem,
-        renderSection,
-        { pathname: location.pathname }
-    );
+    const navigationElements = useRenderedNavigationItems(navigationItems, renderItem, renderSection);
 
     return (
         <>
