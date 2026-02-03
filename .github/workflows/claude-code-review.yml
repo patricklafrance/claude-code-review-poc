@@ -47,7 +47,7 @@ jobs:
             FILES_CHANGED=$(gh pr view ${{ github.event.pull_request.number }} --json files --jq '.files | length')
             echo "files_changed=$FILES_CHANGED" >> $GITHUB_OUTPUT
 
-            if [ $FILES_CHANGED -gt 40 ]; then
+            if [ $FILES_CHANGED -gt 50 ]; then
               echo "max_turns=12" >> $GITHUB_OUTPUT
               echo "Review large PR with 12 turns"
             elif [ $FILES_CHANGED -gt 20 ]; then
