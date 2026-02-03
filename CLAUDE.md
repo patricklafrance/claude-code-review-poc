@@ -66,3 +66,21 @@ Use for security and code quality:
 - No vulnerable dependencies
 - Valid HTML and semantic markup
 - Proper error handling
+
+## Monorepo & CI Review Extensions
+
+### `/turborepo`
+Use for monorepo configuration and Turborepo usage:
+- `turbo.json` task configuration and pipelines
+- `dependsOn`, caching, and `outputs` configuration
+- Package structure and internal packages
+- CI optimization with `--affected` flag
+- Environment variable handling
+
+### `/workleap-chromatic-best-practices`
+Use for Chromatic/Storybook visual testing configuration:
+- `chromatic.config.json` and `untraced` option
+- CI workflow label-based triggering (`run chromatic` label)
+- TurboSnap preservation (avoiding barrel imports in preview files)
+- Required CI flags (`onlyChanged`, `fetch-depth: 0`)
+- Snapshot cost optimization
