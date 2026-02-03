@@ -1,35 +1,33 @@
 # Code Review Instructions
 
-## Review Process
+## Agent skills
 
-For each changed file in the PR, apply the relevant skills below based on file type and imports:
+When performing code reviews, load and use the following agent skills that are available in the `./claude/skills` folder.
 
-### Frontend Files (`.ts`, `.tsx`, `.js`, `.jsx`)
+### Always Apply
 
-1. **Always run `/accessibility`** - Check for WCAG compliance:
-   - Images must have meaningful `alt` text
-   - Form inputs must have associated labels
-   - Interactive elements must be keyboard accessible
-   - Dynamic content must use `role="alert"` or live regions
+Run on every `.ts`, `.tsx`, `.js`, `.jsx` file:
+- `/accessibility`
+- `/best-practices`
+- `/core-web-vitals`
+- `/performance`
+- `/workleap-chromatic-best-practices`
 
-2. **Always run `/best-practices`** - Check for:
-   - Security issues (hardcoded secrets, XSS vulnerabilities)
-   - No PII in logs (emails, passwords, tokens)
-   - Proper error handling
+### Apply Based on Imports
 
-3. **If file imports `@squide/firefly`** → Run `/workleap-squide`
-4. **If file imports `@workleap/logging`** → Run `/workleap-logging`
-5. **If file imports `@workleap/telemetry`** → Run `/workleap-telemetry`
+- Files importing `@squide/*` → `/workleap-squide`
+- Files importing `@workleap/logging` → `/workleap-logging`
+- Files importing `@workleap/telemetry` → `/workleap-telemetry`
+- Files importing `@workleap/browserslist-config`, `@workleap/eslint-configs`, `@workleap/stylelint-plugin`, `@workleap/typescript-configs`, `@workleap/rsbuild-configs`, `@workleap/rslib-configs` → `/workleap-web-configs`
 
-### Configuration Files
+### Apply Based on File Type
 
-- `eslint.config.*`, `tsconfig.json`, `rsbuild.*` → Run `/workleap-web-configs`
-- `turbo.json` → Run `/turborepo`
-- `chromatic.config.json`, `.storybook/*` → Run `/workleap-chromatic-best-practices`
+- `turbo.json` → `/turborepo`
 
 ## Issue Reporting
 
 When reporting issues:
-- Name the skill or category that identified the issue
-- Include exact code location (`file:line`)
-- Explain why it's a problem and how to fix it
+
+- If the issue matches an agent skill or a custom guideline, name it explicitly.
+- Otherwise, choose an appropriate category based on the nature of the issue.
+- Always include the exact code location (`file:line` or line range).
