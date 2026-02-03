@@ -1,6 +1,6 @@
 # Code Review Instructions
 
-When performing code reviews, load and use the following agent skills:
+When performing code reviews, load and use the following local agent skills:
 
 - `/workleap-squide`
 - `/workleap-telemetry`
