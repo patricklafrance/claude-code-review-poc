@@ -1,22 +1,23 @@
-import { useState, useCallback, useEffect } from "react";
-import { useNavigate, useParams } from "react-router";
 import { useLogger } from "@squide/firefly";
+import { RootLogger } from "@workleap/logging";
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import { dataStore } from "../../../shared/dataStore.ts";
-import type { EmployeeFormData } from "../../../shared/types.ts";
 import {
-    containerStyle,
-    pageHeaderStyle,
-    formStyle,
-    formGroupStyle,
-    labelStyle,
-    inputStyle,
-    selectStyle,
-    buttonStyle,
-    buttonSecondaryStyle,
     buttonGroupStyle,
-    successMessageStyle,
-    errorMessageStyle
+    buttonSecondaryStyle,
+    buttonStyle,
+    containerStyle,
+    errorMessageStyle,
+    formGroupStyle,
+    formStyle,
+    inputStyle,
+    labelStyle,
+    pageHeaderStyle,
+    selectStyle,
+    successMessageStyle
 } from "../../../shared/styles.ts";
+import type { EmployeeFormData } from "../../../shared/types.ts";
 
 const departments = ["Engineering", "Support", "HR", "Analytics", "Marketing", "Sales"];
 
@@ -98,7 +99,7 @@ export function EditEmployeePage() {
             return;
         }
 
-        const scope = logger.startScope("Edit Employee");
+        const scope = (logger as RootLogger).startScope("Edit Employee");
 
         const validationError = validateForm();
         if (validationError) {

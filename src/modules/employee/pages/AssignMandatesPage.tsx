@@ -1,20 +1,21 @@
-import { useState, useCallback, useEffect } from "react";
-import { useNavigate, useParams } from "react-router";
 import { useLogger } from "@squide/firefly";
+import { RootLogger } from "@workleap/logging";
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import { dataStore } from "../../../shared/dataStore.ts";
-import type { Employee, Mandate } from "../../../shared/types.ts";
 import {
-    containerStyle,
-    pageHeaderStyle,
-    buttonStyle,
-    buttonSecondaryStyle,
     buttonGroupStyle,
-    successMessageStyle,
-    errorMessageStyle,
+    buttonSecondaryStyle,
+    buttonStyle,
     checkboxContainerStyle,
     checkboxLabelStyle,
-    labelStyle
+    containerStyle,
+    errorMessageStyle,
+    labelStyle,
+    pageHeaderStyle,
+    successMessageStyle
 } from "../../../shared/styles.ts";
+import type { Employee, Mandate } from "../../../shared/types.ts";
 
 export function AssignMandatesPage() {
     const logger = useLogger();
@@ -66,7 +67,7 @@ export function AssignMandatesPage() {
             return;
         }
 
-        const scope = logger.startScope("Assign Mandates");
+        const scope = (logger as RootLogger).startScope("Assign Mandates");
 
         scope.debug(`Assigning ${selectedMandateIds.length} mandates to employee ${id}`);
 
