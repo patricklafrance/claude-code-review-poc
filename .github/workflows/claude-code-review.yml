@@ -17,9 +17,8 @@ concurrency:
 on:
   pull_request:
     types: [opened, synchronize, ready_for_review, reopened]
-    paths:
-      # Skip docs.
-      - '!**/*.md'
+    paths-ignore:
+      - '**/*.md'
 
 jobs:
   claude-review:
