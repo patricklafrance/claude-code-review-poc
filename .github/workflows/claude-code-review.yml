@@ -10,6 +10,9 @@ concurrency:
 on:
   pull_request:
     types: [opened, synchronize, ready_for_review, reopened]
+    paths:
+      # Skip docs
+      - '!**/*.md'
     # Optional: Only run on specific file changes
     # paths:
     #   - "src/**/*.ts"
@@ -34,7 +37,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          # Provides better git history context than "1".
+          fetch-depth: 0
+
+      - name: Check PR size
+        id: pr-size
+        run: |
+            FILES_CHANGED=$(gh pr view ${{ github.event.pull_request.number }} --json files --jq '.files | length')
+              echo "files_changed=$FILES_CHANGED" >> $GITHUB_OUTPUT
+            if [ $FILES_CHANGED -gt 40 ]; then
+              echo "max_turns=12" >> $GITHUB_OUTPUT
+              echo "Review large PR with 12 turns"
+            elif [ $FILES_CHANGED -gt 20 ]; then
+              echo "max_turns=10" >> $GITHUB_OUTPUT
+              echo "Review medium PR with 10 turns"
+            else
+              echo "max_turns=8" >> $GITHUB_OUTPUT
+              echo "Review small PR with 8 turns"
+            fi
+        env:
+            GH_TOKEN: ${{ github.token }}
 
       - name: Run Claude Code Review
         id: claude-review
@@ -52,6 +74,6 @@ jobs:
           use_sticky_comment: true
           # Trying out if "max-turns" could lower the time to process the code review.
           claude_args: >-
-            --max-turns 5
-            --allowedTools "Bash(gh pr *),Bash(gh api *),Read,Glob,Grep,LS,Task"
+            --max-turns ${{ steps.pr-size.outputs.max_turns }}
+            --allowedTools "Bash(gh pr *),Bash(gh api *),Read,Grep"
 
