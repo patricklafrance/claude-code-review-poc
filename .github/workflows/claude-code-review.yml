@@ -4,6 +4,10 @@
 # Potential quality improvements
 # - Add back "Task" as an allowed tool. It will degrade the performance though. Must find the right balance.
 
+# Interesting PRs:
+# - https://github.com/patricklafrance/claude-code-review-poc/pull/3
+# - https://github.com/patricklafrance/claude-code-review-poc/pull/4
+
 name: Claude Code Review
 
 concurrency:
