@@ -19,8 +19,6 @@ on:
     types: [opened, synchronize, ready_for_review, reopened]
     paths-ignore:
       - '**/*.md'
-    paths-ignore:
-      - '**/*.md'
 
 jobs:
   claude-review:
