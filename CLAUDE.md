@@ -30,3 +30,39 @@ Use for configuration files:
 - TypeScript configuration (`tsconfig.json`)
 - Rsbuild/Rslib configuration
 - Stylelint configuration
+
+## Web Quality Review Extensions
+
+For frontend code, also apply web quality validation using these skills:
+
+### `/web-quality-audit`
+Use for comprehensive quality review covering all categories:
+- Performance, accessibility, SEO, and best practices
+- Categorize findings by severity (Critical, High, Medium, Low)
+
+### `/performance`
+Use for performance optimization:
+- Resource loading and optimization
+- JavaScript and CSS efficiency
+- Image and font optimization
+- Caching strategies
+
+### `/core-web-vitals`
+Use for Core Web Vitals compliance:
+- LCP (Largest Contentful Paint) optimization
+- INP (Interaction to Next Paint) optimization
+- CLS (Cumulative Layout Shift) prevention
+
+### `/accessibility`
+Use for WCAG 2.1 compliance:
+- Perceivable: alt text, color contrast, media alternatives
+- Operable: keyboard navigation, focus management
+- Understandable: labels, error handling, consistency
+- Robust: valid HTML, proper ARIA usage
+
+### `/best-practices`
+Use for security and code quality:
+- HTTPS and CSP compliance
+- No vulnerable dependencies
+- Valid HTML and semantic markup
+- Proper error handling
