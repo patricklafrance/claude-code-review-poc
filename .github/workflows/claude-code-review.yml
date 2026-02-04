@@ -43,9 +43,15 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ github.token }}
           # Why not https://skills.sh/vercel/turborepo/turborepo?
           plugin_marketplaces: 'https://github.com/anthropics/claude-code.git'
           # Uses the default Claude Code review plugin, extended by local agent skills instructions in CLAUDE.md.
           plugins: 'code-review@claude-code-plugins'
           prompt: '/code-review:code-review ${{ github.repository }}/pull/${{ github.event.pull_request.number }}'
-          claude_args: '--allowedTools "Bash(gh pr *),Bash(gh api *),Read,Grep,Glob,Skill"'
+          claude_args: >-
+            --allowedTools
+            "Read,Grep,Glob,Skill,
+             Bash(gh pr *),
+             Bash(gh api *),
+             mcp__github_inline_comment__*"
