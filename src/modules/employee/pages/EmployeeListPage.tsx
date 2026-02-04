@@ -82,8 +82,8 @@ export function EmployeeListPage() {
     return (
         <div style={containerStyle}>
             <div style={pageHeaderStyle}>
-                <h1>Employee List</h1>
-                <p>Manage your organization's employees</p>
+                <h1>Employee Directory</h1>
+                <p>Manage your organization's employees and assignments</p>
             </div>
 
             <div style={filterContainerStyle}>
@@ -92,7 +92,7 @@ export function EmployeeListPage() {
                     <input
                         id="search"
                         type="text"
-                        placeholder="Name, email, position..."
+                        placeholder="Name, email, or position..."
                         value={filters.search}
                         onChange={handleSearchChange}
                         style={{ ...inputStyle, width: "250px" }}

@@ -6,13 +6,13 @@ export function HomePage() {
         <div style={containerStyle}>
             <div style={pageHeaderStyle}>
                 <h1>Employee Management System</h1>
-                <p>Welcome to the Employee Management application</p>
+                <p>Welcome to the employee management workspace</p>
             </div>
 
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px", marginTop: "30px" }}>
                 <div style={{ padding: "24px", border: "1px solid #e0e0e0", borderRadius: "8px", backgroundColor: "#f9f9f9" }}>
                     <h2 style={{ marginTop: 0 }}>View Employees</h2>
-                    <p>Browse and search through all employees in your organization. Filter by department or assigned mandates.</p>
+                    <p>Browse and search employees in your organization. Filter by department or assigned mandates.</p>
                     <Link to="/employees" style={{ ...buttonStyle, display: "inline-block", textDecoration: "none" }}>
                         View Employee List
                     </Link>
@@ -30,7 +30,7 @@ export function HomePage() {
                     <h2 style={{ marginTop: 0 }}>Quick Stats</h2>
                     <p>The system currently manages employee records with active project mandates.</p>
                     <Link to="/employees" style={linkStyle}>
-                        View Details →
+                        View Details ->
                     </Link>
                 </div>
             </div>
