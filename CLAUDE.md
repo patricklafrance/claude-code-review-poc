@@ -1,17 +1,26 @@
 # Code Review Instructions
 
+## Review Scope
+
+For most checks, review only the changed lines in the PR diff.
+
+**Exception:** For `/accessibility` and `/best-practices`, review the **entire file** (not just the diff) to catch pre-existing security and accessibility issues.
+
 ## Agent skills
 
 When performing code reviews, load and use the following agent skills that are available in the `./claude/skills` folder.
 
-### Always Apply
+### Always Apply (Full File Review)
 
-Run on every `.ts`, `.tsx`, `.js`, `.jsx` file:
+Run on the **entire file** for every changed `.ts`, `.tsx`, `.js`, `.jsx` file:
 - `/accessibility`
+
+### Always Apply (Diff Only)
+
+Run on every `.ts`, `.tsx`, `.js`, `.jsx` file (changed lines only):
 - `/best-practices`
 - `/core-web-vitals`
 - `/performance`
-- `/workleap-chromatic-best-practices`
 
 ### Apply Based on Imports
 
