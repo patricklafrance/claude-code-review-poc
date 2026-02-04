@@ -2,7 +2,7 @@
 
 ## Agent skills
 
-When performing code reviews, load and use the following agent skills that are available in the `./claude/skills` folder.
+When performing code reviews, load and use the following agent skills that are available in the `./.agents/skills` folder.
 
 ### Always Apply
 

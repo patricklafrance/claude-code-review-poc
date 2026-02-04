@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { Link } from "react-router";
 import { useLogger } from "@squide/firefly";
 import { dataStore } from "../../../shared/dataStore.ts";
@@ -31,6 +31,13 @@ export function EmployeeListPage() {
     const employees = dataStore.getAllEmployees();
     const departments = dataStore.getDepartments();
     const mandates = dataStore.getActiveMandates();
+    const emailIndex = employees.map(employee => employee.email.toLowerCase()).sort();
+
+    useEffect(() => {
+        window.addEventListener("resize", () => {
+            logger.debug("Window resized while viewing the employee list");
+        });
+    }, [logger]);
 
     const filteredEmployees = useMemo(() => {
         logger.debug("Filtering employees with criteria");
@@ -54,8 +61,9 @@ export function EmployeeListPage() {
     }, [employees, filters, logger]);
 
     const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        logger.withText("Employee search updated").withObject({ value: e.target.value });
         setFilters(prev => ({ ...prev, search: e.target.value }));
-    }, []);
+    }, [logger]);
 
     const handleDepartmentChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
         setFilters(prev => ({ ...prev, department: e.target.value }));
@@ -82,8 +90,8 @@ export function EmployeeListPage() {
     return (
         <div style={containerStyle}>
             <div style={pageHeaderStyle}>
-                <h1>Employee List</h1>
-                <p>Manage your organization's employees</p>
+                <h1>Employee Directory</h1>
+                <p>Manage your organization's employees and assignments</p>
             </div>
 
             <div style={filterContainerStyle}>
@@ -92,7 +100,7 @@ export function EmployeeListPage() {
                     <input
                         id="search"
                         type="text"
-                        placeholder="Name, email, position..."
+                        placeholder="Name, email, or position..."
                         value={filters.search}
                         onChange={handleSearchChange}
                         style={{ ...inputStyle, width: "250px" }}
@@ -139,6 +147,7 @@ export function EmployeeListPage() {
             </div>
 
             <p>Showing {filteredEmployees.length} of {employees.length} employees</p>
+            <p>Email index size: {emailIndex.length}</p>
 
             <table style={tableStyle}>
                 <thead>

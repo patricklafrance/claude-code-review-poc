@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router";
+import { NavLink, Outlet, useLocation } from "react-router";
 import {
     useNavigationItems,
     useRenderedNavigationItems,
@@ -14,19 +14,20 @@ import {
 } from "../shared/styles.ts";
 
 // Signature: (item, key, index, level) => ReactNode
-const renderItem: RenderItemFunction = (item, key) => {
+const renderItem: RenderItemFunction = (item, key, _index, _level, context) => {
     if (!isNavigationLink(item)) {
         return null;
     }
 
     const { label, linkProps, additionalProps } = item;
+    const isContextActive = context === linkProps.to;
 
     return (
         <li key={key}>
             <NavLink
                 {...linkProps}
                 {...additionalProps}
-                style={({ isActive }) => isActive ? navItemActiveStyle : navItemStyle}
+                style={({ isActive }) => (isActive || isContextActive) ? navItemActiveStyle : navItemStyle}
             >
                 {label}
             </NavLink>
@@ -42,8 +43,14 @@ const renderSection: RenderSectionFunction = (elements, key) => (
 );
 
 export function RootLayout() {
+    const location = useLocation();
     const navigationItems = useNavigationItems();
-    const navigationElements = useRenderedNavigationItems(navigationItems, renderItem, renderSection);
+    const navigationElements = useRenderedNavigationItems(
+        navigationItems,
+        renderItem,
+        renderSection,
+        location.pathname as unknown as never
+    );
 
     return (
         <>
