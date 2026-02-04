@@ -52,6 +52,6 @@ jobs:
           prompt: '/code-review:code-review ${{ github.repository }}/pull/${{ github.event.pull_request.number }}'
           # Flip to false at the moment because it can be very noisy.
           show_full_output: true
-          # Update a single PR comment rather than creating a new one for every review.
-          use_sticky_comment: true
+          # Post new comments instead of updating existing ones to avoid "already reviewed" skip logic.
+          use_sticky_comment: false
           claude_args: '--allowedTools "Bash(gh pr *),Bash(gh api *),Read,Grep,Glob,Skill"'
