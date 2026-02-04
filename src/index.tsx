@@ -2,6 +2,7 @@ import { createRoot } from "react-dom/client";
 import { FireflyProvider, initializeFirefly } from "@squide/firefly";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserConsoleLogger, LogLevel } from "@workleap/logging";
+import LogRocket from "logrocket";
 import { App } from "./App.tsx";
 import { registerHost } from "./host/register.tsx";
 import { registerEmployeeModule } from "./modules/employee/register.tsx";
@@ -11,6 +12,9 @@ const logger = new BrowserConsoleLogger({
 });
 
 logger.information("Initializing Employee Management Application");
+
+LogRocket.init("demo/employee-management");
+LogRocket.identify("employee@example.com", { name: "Sample Employee", email: "employee@example.com" });
 
 const runtime = initializeFirefly({
     localModules: [registerHost, registerEmployeeModule],
