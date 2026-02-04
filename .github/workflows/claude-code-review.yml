@@ -11,14 +11,12 @@
 name: Claude Code Review
 
 concurrency:
-  group: claude-review-${{ github.event.pull_request.number }}
+  group: claude-code-review-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 on:
   pull_request:
     types: [opened, synchronize, ready_for_review, reopened]
-    paths-ignore:
-      - '**/*.md'
 
 jobs:
   claude-review:
@@ -35,7 +33,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           # Provides better git history context than "1".
           fetch-depth: 0
@@ -50,6 +48,4 @@ jobs:
           # Uses the default Claude Code review plugin, extended by local agent skills instructions in CLAUDE.md.
           plugins: 'code-review@claude-code-plugins'
           prompt: '/code-review:code-review ${{ github.repository }}/pull/${{ github.event.pull_request.number }}'
-          # Flip to false at the moment because it can be very noisy.
-          show_full_output: true
           claude_args: '--allowedTools "Bash(gh pr *),Bash(gh api *),Read,Grep,Glob,Skill"'
