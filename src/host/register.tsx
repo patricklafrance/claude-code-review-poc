@@ -14,6 +14,12 @@ export const registerHost: ModuleRegisterFunction<FireflyRuntime> = runtime => {
         element: <HomePage />
     });
 
+    runtime.registerRoute({
+        path: "/login",
+        element: <div>Login</div>,
+        $visibility: "public"
+    });
+
     runtime.registerPublicRoute({
         path: "*",
         element: <NotFoundPage />

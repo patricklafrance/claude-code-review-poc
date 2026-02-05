@@ -1,4 +1,5 @@
 import { useLogger } from "@squide/firefly";
+import { useMixpanelTrackingFunction } from "@workleap/telemetry/react";
 import { RootLogger } from "@workleap/logging";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router";
@@ -34,6 +35,7 @@ const departments = ["Engineering", "Support", "HR", "Analytics", "Marketing", "
 export function AddEmployeePage() {
     const logger = useLogger();
     const navigate = useNavigate();
+    const track = useMixpanelTrackingFunction();
 
     const [formData, setFormData] = useState<EmployeeFormData>(initialFormData);
     const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
@@ -88,6 +90,8 @@ export function AddEmployeePage() {
 
         const newEmployee = dataStore.addEmployee(formData);
         scope.information(`Employee created with ID: ${newEmployee.id}`);
+        logger.withText("Employee added").withObject({ email: formData.email });
+        track("employee-added", { email: formData.email });
 
         setMessage({ type: "success", text: `Employee ${newEmployee.firstName} ${newEmployee.lastName} added successfully!` });
         setFormData(initialFormData);
@@ -102,9 +106,11 @@ export function AddEmployeePage() {
     return (
         <div style={containerStyle}>
             <div style={pageHeaderStyle}>
-                <h1>Add New Employee</h1>
+                <h2>Add New Employee</h2>
                 <p>Enter the details of the new employee</p>
             </div>
+
+            <img src="https://placehold.co/800x400" />
 
             {message && (
                 <div style={message.type === "success" ? successMessageStyle : errorMessageStyle}>
@@ -119,6 +125,7 @@ export function AddEmployeePage() {
                         id="firstName"
                         name="firstName"
                         type="text"
+                        aria-invalid="true"
                         value={formData.firstName}
                         onChange={handleInputChange}
                         style={inputStyle}
@@ -166,6 +173,16 @@ export function AddEmployeePage() {
                             <option key={dept} value={dept}>{dept}</option>
                         ))}
                     </select>
+                </div>
+
+                <div style={formGroupStyle}>
+                    <label htmlFor="office" style={labelStyle}>Office Location</label>
+                    <input
+                        id="officeLocation"
+                        type="text"
+                        style={inputStyle}
+                        placeholder="Enter office location"
+                    />
                 </div>
 
                 <div style={formGroupStyle}>

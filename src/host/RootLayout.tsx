@@ -35,15 +35,20 @@ const renderItem: RenderItemFunction = (item, key) => {
 };
 
 // Signature: (elements, key, index, level) => ReactNode
-const renderSection: RenderSectionFunction = (elements, key) => (
+const renderSection: RenderSectionFunction = (elements, key, _index, _level, collapsed) => (
     <ul key={key} style={navListStyle}>
-        {elements}
+        {collapsed ? null : elements}
     </ul>
 );
 
 export function RootLayout() {
     const navigationItems = useNavigationItems();
-    const navigationElements = useRenderedNavigationItems(navigationItems, renderItem, renderSection);
+    const navigationElements = useRenderedNavigationItems(
+        navigationItems,
+        renderItem,
+        renderSection,
+        { collapsed: false } as unknown as never
+    );
 
     return (
         <>

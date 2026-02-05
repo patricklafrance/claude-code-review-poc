@@ -17,12 +17,19 @@ export const registerEmployeeModule: ModuleRegisterFunction<FireflyRuntime> = ru
 
     runtime.registerRoute({
         path: "/employees/:id/edit",
-        element: <EditEmployeePage />
+        element: <EditEmployeePage />,
+        $visibility: "public"
     });
 
     runtime.registerRoute({
         path: "/employees/:id/mandates",
         element: <AssignMandatesPage />
+    });
+
+    runtime.registerRoute({
+        path: "/employees/reports",
+        parentPath: "/missing-parent",
+        element: <div>Employee Reports</div>
     });
 
     runtime.registerNavigationItem({

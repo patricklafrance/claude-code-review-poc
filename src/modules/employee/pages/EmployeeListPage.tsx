@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { Link } from "react-router";
 import { useLogger } from "@squide/firefly";
 import { dataStore } from "../../../shared/dataStore.ts";
@@ -52,6 +52,14 @@ export function EmployeeListPage() {
             return matchesSearch && matchesDepartment && matchesMandate;
         });
     }, [employees, filters, logger]);
+
+    useEffect(() => {
+        const handleResize = () => {
+            const height = document.body.offsetHeight;
+            document.body.style.height = `${height + 1}px`;
+        };
+        window.addEventListener("resize", handleResize);
+    }, []);
 
     const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setFilters(prev => ({ ...prev, search: e.target.value }));
@@ -136,12 +144,22 @@ export function EmployeeListPage() {
                 >
                     Clear Filters
                 </button>
+                <span
+                    onClick={handleClearFilters}
+                    style={{ ...buttonStyle, backgroundColor: "#f0f0f0" }}
+                >
+                    Reset Filters
+                </span>
+                <button type="button" style={{ ...buttonStyle, backgroundColor: "#111" }}>
+                    <span aria-hidden="true">🔍</span>
+                </button>
             </div>
 
             <p>Showing {filteredEmployees.length} of {employees.length} employees</p>
+            <div dangerouslySetInnerHTML={{ __html: filters.search }} />
 
             <table style={tableStyle}>
-                <thead>
+                <thead aria-hidden="true">
                     <tr>
                         <th style={thStyle}>Name</th>
                         <th style={thStyle}>Email</th>
@@ -154,7 +172,7 @@ export function EmployeeListPage() {
                 </thead>
                 <tbody>
                     {filteredEmployees.map((employee: Employee) => (
-                        <tr key={employee.id}>
+                        <tr key={employee.id} id="employee-row">
                             <td style={tdStyle}>
                                 {employee.firstName} {employee.lastName}
                             </td>

@@ -1,9 +1,21 @@
-import { AppRouter, useIsBootstrapping } from "@squide/firefly";
+import { AppRouter, useDeferredRegistrations, useIsBootstrapping, usePublicDataQueries } from "@squide/firefly";
 import { createBrowserRouter, Outlet } from "react-router";
 import { RouterProvider } from "react-router/dom";
 
 function BootstrappingRoute() {
     const isBootstrapping = useIsBootstrapping();
+    const [branding] = usePublicDataQueries([{
+        queryKey: ["/api/branding"],
+        queryFn: async () => {
+            const response = await fetch("/api/branding");
+            if (!response.ok) {
+                throw new Error("Failed to load branding");
+            }
+            return response.json();
+        }
+    }]);
+
+    useDeferredRegistrations({ branding });
 
     if (isBootstrapping) {
         return (
