@@ -12,7 +12,8 @@ export const registerEmployeeModule: ModuleRegisterFunction<FireflyRuntime> = ru
 
     runtime.registerRoute({
         path: "/employees/add",
-        element: <AddEmployeePage />
+        element: <AddEmployeePage />,
+        $visibility: "public"
     });
 
     runtime.registerRoute({
@@ -23,6 +24,12 @@ export const registerEmployeeModule: ModuleRegisterFunction<FireflyRuntime> = ru
     runtime.registerRoute({
         path: "/employees/:id/mandates",
         element: <AssignMandatesPage />
+    });
+
+    runtime.registerRoute({
+        path: "/employees/reports",
+        parentId: "missing-parent-route",
+        element: <div>Employee Reports</div>
     });
 
     runtime.registerNavigationItem({
@@ -36,4 +43,14 @@ export const registerEmployeeModule: ModuleRegisterFunction<FireflyRuntime> = ru
         $label: "Add Employee",
         to: "/employees/add"
     });
+
+    return (deferredRuntime, { userData }) => {
+        if (userData?.isAdmin && deferredRuntime.getFeatureFlag("employee-reports-enabled", false)) {
+            deferredRuntime.registerNavigationItem({
+                $id: "employee-reports",
+                $label: "Reports",
+                to: "/employees/reports"
+            });
+        }
+    };
 };

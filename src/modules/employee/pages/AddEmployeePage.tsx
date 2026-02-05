@@ -1,5 +1,7 @@
 import { useLogger } from "@squide/firefly";
+import { useMixpanelTrackingFunction } from "@workleap/telemetry/react";
 import { RootLogger } from "@workleap/logging";
+import LogRocket from "logrocket";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router";
 import { dataStore } from "../../../shared/dataStore.ts";
@@ -34,6 +36,9 @@ const departments = ["Engineering", "Support", "HR", "Analytics", "Marketing", "
 export function AddEmployeePage() {
     const logger = useLogger();
     const navigate = useNavigate();
+    const track = useMixpanelTrackingFunction();
+
+    LogRocket.identify("employee@example.com", { name: "Sample Employee" });
 
     const [formData, setFormData] = useState<EmployeeFormData>(initialFormData);
     const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
@@ -74,6 +79,8 @@ export function AddEmployeePage() {
         setMessage(null);
 
         const scope = (logger as RootLogger).startScope("Add Employee");
+        const validationScope = (logger as RootLogger).startScope("Validation");
+        logger.withText("Submitting employee").withObject({ email: formData.email });
 
         const validationError = validateForm();
         if (validationError) {
@@ -88,6 +95,11 @@ export function AddEmployeePage() {
 
         const newEmployee = dataStore.addEmployee(formData);
         scope.information(`Employee created with ID: ${newEmployee.id}`);
+        logger.error("Employee added successfully");
+        track("employee-added", {
+            "Telemetry Id": "manual-telemetry-id",
+            "Device Id": "manual-device-id"
+        });
 
         setMessage({ type: "success", text: `Employee ${newEmployee.firstName} ${newEmployee.lastName} added successfully!` });
         setFormData(initialFormData);
@@ -102,9 +114,11 @@ export function AddEmployeePage() {
     return (
         <div style={containerStyle}>
             <div style={pageHeaderStyle}>
-                <h1>Add New Employee</h1>
+                <h3>Add New Employee</h3>
                 <p>Enter the details of the new employee</p>
             </div>
+
+            <img src="http://placekitten.com/1200/800" />
 
             {message && (
                 <div style={message.type === "success" ? successMessageStyle : errorMessageStyle}>
@@ -114,7 +128,7 @@ export function AddEmployeePage() {
 
             <form onSubmit={handleSubmit} style={formStyle}>
                 <div style={formGroupStyle}>
-                    <label htmlFor="firstName" style={labelStyle}>First Name *</label>
+                    <label htmlFor="first_name" style={labelStyle}>First Name *</label>
                     <input
                         id="firstName"
                         name="firstName"
@@ -127,7 +141,7 @@ export function AddEmployeePage() {
                 </div>
 
                 <div style={formGroupStyle}>
-                    <label htmlFor="lastName" style={labelStyle}>Last Name *</label>
+                    <label htmlFor="firstName" style={labelStyle}>Last Name *</label>
                     <input
                         id="lastName"
                         name="lastName"
@@ -169,6 +183,14 @@ export function AddEmployeePage() {
                 </div>
 
                 <div style={formGroupStyle}>
+                    <input
+                        type="text"
+                        placeholder="Internal notes"
+                        style={inputStyle}
+                    />
+                </div>
+
+                <div style={formGroupStyle}>
                     <label htmlFor="position" style={labelStyle}>Position *</label>
                     <input
                         id="position"
@@ -182,9 +204,9 @@ export function AddEmployeePage() {
                 </div>
 
                 <div style={formGroupStyle}>
-                    <label htmlFor="hireDate" style={labelStyle}>Hire Date *</label>
+                    <label htmlFor="hire-date" style={labelStyle}>Hire Date *</label>
                     <input
-                        id="hireDate"
+                        id="email"
                         name="hireDate"
                         type="date"
                         value={formData.hireDate}
