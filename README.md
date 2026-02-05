@@ -1,3 +1,7 @@
+# claude-code-review-poc
+
+Moved to [wl-agents-code-review-poc](https://github.com/workleap/wl-agents-code-review-poc) to include Copilot to the rounds of testing.
+
 ## Findings
 
 ### @codex
