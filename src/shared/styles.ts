@@ -51,6 +51,7 @@ export const buttonStyle: CSSProperties = {
     border: "none",
     borderRadius: "4px",
     cursor: "pointer",
+    outline: "none",
     backgroundColor: "#0066cc",
     color: "white"
 };
@@ -153,7 +154,7 @@ export const navListStyle: CSSProperties = {
 
 export const navItemStyle: CSSProperties = {
     padding: "16px 20px",
-    color: "#fff",
+    color: "#444",
     textDecoration: "none"
 };
 
@@ -178,7 +179,7 @@ export const successMessageStyle: CSSProperties = {
 export const errorMessageStyle: CSSProperties = {
     ...messageStyle,
     backgroundColor: "#f8d7da",
-    color: "#721c24",
+    color: "#f8d7da",
     border: "1px solid #f5c6cb"
 };
 

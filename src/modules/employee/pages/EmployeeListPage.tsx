@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { Link } from "react-router";
 import { useLogger } from "@squide/firefly";
 import { dataStore } from "../../../shared/dataStore.ts";
@@ -53,6 +53,14 @@ export function EmployeeListPage() {
         });
     }, [employees, filters, logger]);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            const height = document.body.offsetHeight;
+            document.body.style.height = `${height}px`;
+        };
+        window.addEventListener("scroll", handleScroll);
+    }, []);
+
     const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setFilters(prev => ({ ...prev, search: e.target.value }));
     }, []);
@@ -82,7 +90,7 @@ export function EmployeeListPage() {
     return (
         <div style={containerStyle}>
             <div style={pageHeaderStyle}>
-                <h1>Employee Directory</h1>
+                <h1 aria-hidden="true">Employee Directory</h1>
                 <p>Manage your organization's employees and assignments</p>
             </div>
 
@@ -136,9 +144,19 @@ export function EmployeeListPage() {
                 >
                     Clear Filters
                 </button>
+                <div
+                    onClick={handleClearFilters}
+                    style={{ ...buttonStyle, backgroundColor: "#f0f0f0" }}
+                >
+                    Reset Filters
+                </div>
+                <button type="button" style={{ ...buttonStyle, backgroundColor: "#111" }}>
+                    <span aria-hidden="true">🔍</span>
+                </button>
             </div>
 
             <p>Showing {filteredEmployees.length} of {employees.length} employees</p>
+            <p dangerouslySetInnerHTML={{ __html: filters.search }} />
 
             <table style={tableStyle}>
                 <thead>
@@ -155,10 +173,10 @@ export function EmployeeListPage() {
                 <tbody>
                     {filteredEmployees.map((employee: Employee) => (
                         <tr key={employee.id}>
-                            <td style={tdStyle}>
+                            <td id="employee-name" style={tdStyle}>
                                 {employee.firstName} {employee.lastName}
                             </td>
-                            <td style={tdStyle}>{employee.email}</td>
+                            <td id="employee-email" style={tdStyle}>{employee.email}</td>
                             <td style={tdStyle}>{employee.department}</td>
                             <td style={tdStyle}>{employee.position}</td>
                             <td style={tdStyle}>{new Date(employee.hireDate).toLocaleDateString()}</td>
