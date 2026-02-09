@@ -36,6 +36,7 @@ export const inputStyle: CSSProperties = {
     fontSize: "14px",
     border: "1px solid #ccc",
     borderRadius: "4px",
+    color: "#ccc",
     outline: "none"
 };
 
